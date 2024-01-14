@@ -152,7 +152,6 @@ module.exports = {
       body.owner = req.user;
       const like = await Likes.create(req.body);
       newData = await BlogPost.updateOne({ _id: req.params.postId },{ $push: { likes: like._id } });
-        console.log("like");
         message="Liked"
     }
     else{
@@ -168,7 +167,7 @@ module.exports = {
 
     const result = await BlogPost.findOne({ _id: req.params.postId });
     
-      res.status(202).send({
+      res.status(200).send({
         error: false,
         new: result,
         message
