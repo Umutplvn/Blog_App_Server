@@ -19,11 +19,9 @@ module.exports = {
         await Token.create({ userId: user._id, token: tokenData });
 
         res.status(200).send({
-          user: {
             error: false,
             user,
-            Token: tokenData,
-          },
+            Token: tokenData,   
         });
       } else {
         res.errorStatusCode = 401;
