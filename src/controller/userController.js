@@ -7,8 +7,8 @@ BLOG APP
 // Catch async-errors and send to errorHandler:
 require("express-async-errors");
 const passwordEncrypt=require('../helpers/passwordEncrypt')
+
 const User = require("../models/userModel");
-const Token = require("../models/token");
 
 // ------------------------------------------
 // User
@@ -26,15 +26,12 @@ module.exports = {
 
   create: async (req, res) => {
     const data = await User.create(req.body);
-    const tokenData ="Token "+passwordEncrypt(data._id+`${new Date()}`);
-
-    await Token.create({ userId:_id, token: tokenData });
 
     res.status(201).send({
         error:false,
-        user:data,
-        Token: tokenData,   
-
+        email:data.email,
+        fistname:req.body.fistname,
+        lastname:req.body.lastname,
     });
   },
 
