@@ -7,10 +7,8 @@ BLOG APP
 // Catch async-errors and send to errorHandler:
 require("express-async-errors");
 const passwordEncrypt=require('../helpers/passwordEncrypt')
-
 const User = require("../models/userModel");
 const Token = require("../models/token");
-const passwordEncrypt = require("../helpers/passwordEncrypt.js");
 
 // ------------------------------------------
 // User
