@@ -21,7 +21,7 @@ module.exports = {
         res.status(200).send({
           user: {
             error: false,
-            user:user,
+            user,
             Token: tokenData,
           },
         });
