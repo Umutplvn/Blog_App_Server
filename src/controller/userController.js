@@ -9,6 +9,7 @@ require("express-async-errors");
 const passwordEncrypt=require('../helpers/passwordEncrypt')
 
 const User = require("../models/userModel");
+const Token = require("../models/token");
 
 // ------------------------------------------
 // User
@@ -25,15 +26,28 @@ module.exports = {
   },
 
   create: async (req, res) => {
+
     const data = await User.create(req.body);
+
+    const { email, password } = req.body;
+
+    if (email && password) {
+      const user = await User.findOne({ email: email, password: password });
+      if (user) {
+        const tokenData ="Token "+passwordEncrypt(user._id+`${new Date()}`);
+        
+        await Token.create({ userId: user._id, token: tokenData });
 
     res.status(201).send({
         error:false,
         email:data.email,
-        fistname:req.body.fistname,
-        lastname:req.body.lastname,
+        fistName:data.firstName,
+        lastName:data.lastName,
+        username:data.username,
+        token:tokenData,
+        image:data.image,
     });
-  },
+      }}},
 
   read: async (req, res) => {
     const data = await User.findOne({ _id: req.params.userId });
