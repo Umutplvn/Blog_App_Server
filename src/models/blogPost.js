@@ -60,8 +60,15 @@ const blogPostSchema= new mongoose.Schema({
 
     likes_n:{
         type: Number,
-        default: function(){ return this.likes.length }
-    }
+        // default: function(){ return this.likes.length }
+        transform: function(){ return this.likes.length }
+    },
+
+    post_views:[{
+        type:mongoose.Schema.Types.ObjectId,
+        res:"User"
+    }]
+    
 
 },{collection:'blogPost', timestamps:{createdAt:'publish_date', updatedAt:'update_date'}})
 
