@@ -47,11 +47,16 @@ module.exports = {
       .populate("author")
       .populate("likes");
 
-      await BlogPost.updateOne({ _id: req.params.postId }, { $push: { post_views: req.user } })
+      const user=  await BlogPost.findOne({ _id: req.params.postId })
+
+      if(!(user.post_views.includes(req.user))){
+        await BlogPost.updateOne({ _id: req.params.postId }, { $push: { post_views: req.user } })
+      }
 
     res.status(200).send({
       error: false,
       result: data,
+      user:req.user
     });
   },
 
