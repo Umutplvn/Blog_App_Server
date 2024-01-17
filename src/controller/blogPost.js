@@ -91,11 +91,12 @@ module.exports = {
 
   pushComment: async (req, res) => {
     
-    const yorum = await Comments.create({
-      comment: req.body.comment,
-      author: req?.user,
-    });
-    const data = await BlogPost.updateOne(
+    const yorum =  await Comments.create({
+       comment: req.body.comment,
+       author: req?.user
+     });
+    
+     const data = await BlogPost.updateOne(
       { _id: req.params.postId },
       { $push: { comments: yorum._id } }
     );
