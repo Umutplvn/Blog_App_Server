@@ -5,8 +5,6 @@ BLOG APP
 /*--------------------------------------*/
 
 const mongoose = require('mongoose')
-const commentModel=require('./comments')
-const likes = require('./likes')
 const blogPostSchema= new mongoose.Schema({
    
     title: {
