@@ -17,6 +17,11 @@ const commentsSchema= new mongoose.Schema({
     author:{
         type: mongoose.Schema.Types.ObjectId,
         ref:"User"
+    },
+
+    username:{
+        type: String,
+        trim:true,
     }
 
 },{collection:'comments', timestamps:{createdAt:'publish_date', updatedAt:'update_date'}})

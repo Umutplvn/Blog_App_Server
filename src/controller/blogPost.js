@@ -14,7 +14,6 @@ module.exports = {
     const data = await BlogPost.find()
       .populate("category_name")
       .populate("comments")
-      .populate("author")
       .populate("likes")
       .populate("likes_n");
 
@@ -43,7 +42,6 @@ module.exports = {
     const data = await BlogPost.findOne({ _id: req.params.postId })
       .populate("category_name")
       .populate("comments")
-      .populate("author")
       .populate("likes");
 
       const user=  await BlogPost.findOne({ _id: req.params.postId })
@@ -91,18 +89,22 @@ module.exports = {
 
   pushComment: async (req, res) => {
     
+    const user = await User.findOne({_id:req.user})
+
     const yorum =  await Comments.create({
        comment: req.body.comment,
-       author: req?.user
+       author: req?.user,
+       username:user?.username
      });
     
      const data = await BlogPost.updateOne(
       { _id: req.params.postId },
       { $push: { comments: yorum._id } }
     );
-    const newData = await BlogPost.findOne({ _id: req.params.postId }).populate(
-      "comments"
-    );
+    const newData = await BlogPost.findOne({ _id: req.params.postId })
+    .populate("comments")
+
+  //   populate(['userId',{ path: 'pizzaId', populate: 'toppings' }])
 
     res.status(202).send({
       error: false,
