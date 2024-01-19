@@ -16,7 +16,6 @@ module.exports = {
       .populate("comments")
       .populate("likes")
       .populate("author")
-      .populate("likes_n");
 
     res.status(200).send({
       error: false,
@@ -26,11 +25,15 @@ module.exports = {
   },
 
   create: async (req, res) => {
+
+    const user=await User.findOne({_id:req.user})
+
     const body = req.body;
     const author = req.user;
     body.author = author;
+    body.userImage=user.image
 
-    const data = await BlogPost.create(body);
+    const data = (await BlogPost.create(body))
 
     res.status(201).send({
       error: false,
@@ -96,7 +99,8 @@ module.exports = {
     const yorum =  await Comments.create({
        comment: req.body.comment,
        author: req?.user,
-       username:user?.username
+       username:user?.username,
+       userImage:user.image
      });
     
      const data = await BlogPost.updateOne(
@@ -106,7 +110,6 @@ module.exports = {
     const newData = await BlogPost.findOne({ _id: req.params.postId })
     .populate("comments")
 
-  //   populate(['userId',{ path: 'pizzaId', populate: 'toppings' }])
 
     res.status(202).send({
       error: false,

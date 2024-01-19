@@ -6,6 +6,7 @@ BLOG APP
 
 //! Call Models:
 const Comments = require('../models/comments')
+const User = require('../models/userModel')
 
 module.exports = {
 
@@ -22,19 +23,19 @@ module.exports = {
 
     create: async (req, res) => {
 
+        const user=await User.findOne({_id:req.user})
+
         const body=req.body
         const username=req.user
         body.username=username
-
-        console.log("username",username);
+        body.userImage=user.image
 
         const data =  await Comments.create(body)
 
         res.status(201).send({
             error: false,
-            body: req.body,
-            result: data,
-            username:req.user
+            body:body,
+            result: data
         })
     },
 

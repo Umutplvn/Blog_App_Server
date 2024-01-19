@@ -22,6 +22,10 @@ const commentsSchema= new mongoose.Schema({
     username:{
         type: String,
         trim:true,
+    },
+    userImage:{
+        type: String,
+        trim:true,
     }
 
 },{collection:'comments', timestamps:{createdAt:'publish_date', updatedAt:'update_date'}})
