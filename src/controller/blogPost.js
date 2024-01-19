@@ -151,17 +151,13 @@ module.exports = {
 
 
   createLike: async (req, res) => {
-    const data = await BlogPost.findOne({ _id: req.params.postId }).populate(
-      "likes"
-    );
     const user=req.user
-    const check = (data.likes.map((item) => item._id=user));
-    const isLiked = check.map((item)=>item == user)
+    const data = await BlogPost.findOne({ _id: req.params.postId, likes:req.user })
 
     let newData = undefined;
     let message = undefined;
 
-    if (!isLiked.includes(true)) {
+    if (!data) {
       const body = req.body;
       body.owner = req.user;
 
@@ -169,12 +165,15 @@ module.exports = {
         { $push: { likes: req.user }}
       );
       message = "Liked";
+      console.log("liked");
     } else {
       newData = await BlogPost.updateOne(
         { _id: req.params.postId },
         { $pull: { likes: req.user } }
       );
       message = "Disliked";
+      console.log("disliked");
+
     }
 
     const result = await BlogPost.findOne({ _id: req.params.postId });
