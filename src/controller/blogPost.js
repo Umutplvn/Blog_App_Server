@@ -15,6 +15,7 @@ module.exports = {
       .populate("category_name")
       .populate("comments")
       .populate("likes")
+      .populate("author")
       .populate("likes_n");
 
     res.status(200).send({
@@ -42,7 +43,8 @@ module.exports = {
     const data = await BlogPost.findOne({ _id: req.params.postId })
       .populate("category_name")
       .populate("comments")
-      .populate("likes");
+      .populate("likes")
+      .populate("author")    
 
       const user=  await BlogPost.findOne({ _id: req.params.postId })
 
