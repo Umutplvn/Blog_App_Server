@@ -11,7 +11,7 @@ module.exports = {
     if (email && password && username) {
       // const user = await User.findOne({ email: email, password: passwordEncrypt(password) })
       // No need passwordEncrypt, because using "set" in model:
-      const user = await User.findOne({ email: email, password:password });
+      const user = await User.findOne({ email: email, password: passwordEncrypt(password) });
       console.log(email, password);
       if (user) {
         const tokenData ="Token "+passwordEncrypt(user._id+`${new Date()}`);
