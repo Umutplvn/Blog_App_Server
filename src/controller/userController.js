@@ -46,6 +46,7 @@ module.exports = {
         username:data.username,
         token:tokenData,
         image:data.image,
+        userId:user._id
     });
       }}},
 
@@ -92,11 +93,12 @@ module.exports = {
     await User.updateOne({_id:req.user}, {password:password}, {
       runValidators: true,
     })
+    const newData= await User.findOne({_id:req.user})
 
     res.status(202).send({
       error:false,
       message:"Password has changed successfully.",
-      newData:await User.findOne({_id:req.user})
+      newData
     })
   }
 };
