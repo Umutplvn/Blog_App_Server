@@ -22,9 +22,13 @@ router.route('/users')
 router.route('/register')
     .post(User.create)
 
+router.route('/password/change')
+    .put(User.updatePassword)
+
 router.route('/:userId')
     .get(User.read)
     .put(User.update)
     .delete(User.delete)
+    
 
 module.exports = router

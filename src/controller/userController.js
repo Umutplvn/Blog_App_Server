@@ -84,4 +84,22 @@ module.exports = {
       });
     }
   },
+
+  updatePassword:async(req, res)=>{
+
+    const password=req.body.password
+
+    const user=await User.findOne({_id:req.user}, {password:passwordEncrypt(password)}, {
+      runValidators: true,
+    })
+
+    console.log(user);
+    console.log(password);
+
+    res.send({
+      error:false,
+      message:"Password has changed successfully.",
+
+    })
+  }
 };
