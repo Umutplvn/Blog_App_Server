@@ -89,7 +89,7 @@ module.exports = {
 
     const password=req.body.password
 
-    const user=await User.findOne({_id:req.user}, {password:passwordEncrypt(password)}, {
+    const user=await User.updateOne({_id:req.user}, {password:passwordEncrypt(password)}, {
       runValidators: true,
     })
 
