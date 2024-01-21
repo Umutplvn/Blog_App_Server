@@ -15,6 +15,7 @@ module.exports = {
       .populate("category_name")
       .populate("comments")
       .populate("likes")
+      .populate("author")
 
     res.status(200).send({
       error: false,
@@ -46,6 +47,7 @@ module.exports = {
       .populate("category_name")
       .populate("comments")
       .populate("likes")
+      .populate("author")
 
       const user=  await BlogPost.findOne({ _id: req.params.postId })
 
