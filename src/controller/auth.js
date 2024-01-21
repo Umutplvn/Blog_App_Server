@@ -8,11 +8,11 @@ const passwordEncrypt = require("../helpers/passwordEncrypt.js");
 module.exports = {
   login: async (req, res) => {
     const { email, password, username } = req.body;
-
     if (email && password && username) {
       // const user = await User.findOne({ email: email, password: passwordEncrypt(password) })
       // No need passwordEncrypt, because using "set" in model:
-      const user = await User.findOne({ email: email, password: password });
+      const user = await User.findOne({ email: email, password:password });
+      console.log(email, password);
       if (user) {
         const tokenData ="Token "+passwordEncrypt(user._id+`${new Date()}`);
         
