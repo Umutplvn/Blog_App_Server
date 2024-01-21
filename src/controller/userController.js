@@ -89,9 +89,10 @@ module.exports = {
 
     const password=req.body.password
 
-    await User.updateOne({_id:req.user}, {password:password}, {
+    await User.updateOne({_id:req.user._id}, {password:passwordEncrypt(password)}, {
       runValidators: true,
     })
+
 
     res.send({
       error:false,
