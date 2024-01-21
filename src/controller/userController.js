@@ -88,16 +88,15 @@ module.exports = {
   updatePassword:async(req, res)=>{
 
     const password=req.body.password
-
-    await User.updateOne({_id:req.user._id}, {password:passwordEncrypt(password)}, {
+    
+    await User.updateOne({_id:req.user}, {password:passwordEncrypt(password)}, {
       runValidators: true,
     })
 
-
-    res.send({
+    res.status(202).send({
       error:false,
       message:"Password has changed successfully.",
-
+      newData:await User.findOne({_id:req.user})
     })
   }
 };
