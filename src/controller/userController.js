@@ -37,7 +37,6 @@ module.exports = {
         const tokenData ="Token "+passwordEncrypt(user._id+`${new Date()}`);
         
         await Token.create({ userId: user._id, token: tokenData });
-
     res.status(201).send({
         error:false,
         email:data.email,
@@ -46,7 +45,8 @@ module.exports = {
         username:data.username,
         token:tokenData,
         image:data.image,
-        userId:user._id
+        userId:user._id,
+        bio:data.bio
     });
       }}},
 
