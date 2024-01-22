@@ -17,7 +17,7 @@ app.use(express.json())
 app.use(require('cors')())
 
 //! Connect to MongoDB with Mongoose:
-require('./src/dbConnection')
+require('./src/configs/dbConnection')
 /*--------------------------------------*/
 app.use(require('./src/middlewares/authorization'))
 /*--------------------------------------*/
