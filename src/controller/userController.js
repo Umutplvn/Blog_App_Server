@@ -40,12 +40,12 @@ module.exports = {
     res.status(201).send({
         error:false,
         email:data.email,
-        fistName:data.firstName,
+        firstName:data.firstName,
         lastName:data.lastName,
         username:data.username,
         token:tokenData,
         image:data.image,
-        userId:user._id,
+        _id:user._id,
         bio:data.bio
     });
       }}},
