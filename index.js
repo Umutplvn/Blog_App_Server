@@ -50,8 +50,7 @@ app.use('/api', require('./src/routes/comments'))
 
 app.use('/users/auth', require('./src/routes/auth'))
 app.use('/users/auth', require('./src/routes/userRoute'))
-
-
+app.use('/documents', require('./src/routes/document'))
 
 //! errorHandler:
 app.use(require('./src/errorHandler'))
