@@ -29,10 +29,16 @@ app.use(require('./src/middlewares/findSearchSortPage'))
 /*--------------------------------------*/
 //! Home Page
 
-app.get('/', (req, res)=>{
+app.all('/', (req, res)=>{
     res.send({
         err:false,
-        message:'Welcome to Blog APP'
+        message:'Welcome to Blog APP',
+        documents: {
+            swagger: '/documents/swagger',
+            redoc: '/documents/redoc',
+            json: '/documents/json',
+        },
+        user:req.user
     })
 })
 
