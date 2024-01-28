@@ -43,17 +43,16 @@ module.exports = {
   },
 
   read: async (req, res) => {
-    const data = await BlogPost.findOne({ _id: req.params.postId })
+
+      const user=  await BlogPost.findOne({ _id: req.params.postId })
+      if(!(user.post_views.includes(req.user))){
+        await BlogPost.updateOne({ _id: req.params.postId }, { $push: { post_views: req.user } })
+      }
+      const data = await BlogPost.findOne({ _id: req.params.postId })
       .populate("category_name")
       .populate("comments")
       .populate("likes")
       .populate("author")
-
-      const user=  await BlogPost.findOne({ _id: req.params.postId })
-
-      if(!(user.post_views.includes(req.user))){
-        await BlogPost.updateOne({ _id: req.params.postId }, { $push: { post_views: req.user } })
-      }
 
     res.status(200).send({
       error: false,
