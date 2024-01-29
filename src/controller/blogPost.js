@@ -162,16 +162,17 @@ module.exports = {
 
       newData = await BlogPost.updateOne({ _id: req.params.postId },
         { $push: { likes: req.user }}
+
       );
+      console.log(req.user);
+
       message = "Liked";
-      console.log("liked");
     } else {
       newData = await BlogPost.updateOne(
         { _id: req.params.postId },
         { $pull: { likes: req.user } }
       );
       message = "Disliked";
-      console.log("disliked");
 
     }
 
@@ -179,7 +180,7 @@ module.exports = {
 
     res.status(200).send({
       error: false,
-      new: result,
+      result: result,
       message,
     });
   },
