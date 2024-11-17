@@ -57,3 +57,5 @@ app.use(require('./src/errorHandler'))
 
 /*--------------------------------------*/
 app.listen(PORT, ()=>console.log(`App is running: ${HOST}:${PORT} `))
+
+module.exports=app
